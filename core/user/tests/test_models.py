@@ -3,7 +3,7 @@ from core.user.models import User
 
 data_user = {
     "username": "test_user",
-    "email": "test@gmail@.com",
+    "email": "test@gmail.com",
     "first_name": "Test",
     "last_name": "User",
     "password": "test_password"
@@ -19,9 +19,9 @@ def test_create_user():
 
 data_superuser = {
     "username": "test_superuser",
-    "email": "testsuperuser@gmail@.com",
+    "email": "testsuperuser@gmail.com",
     "first_name": "Test",
-    "last_name": "Superser",
+    "last_name": "Superuser",
     "password": "test_password"
 }
 
