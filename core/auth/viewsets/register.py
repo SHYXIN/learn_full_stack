@@ -25,5 +25,6 @@ class RegisterViewSet(ViewSet):
         return Response({
             "user": serializer.data,
             "refresh": res["refresh"],
-            "token": res["access"]
+            "access": res["access"],   # 这里应该对应起来和前端
+            # "token": res["access"],
         }, status=status.HTTP_201_CREATED)
