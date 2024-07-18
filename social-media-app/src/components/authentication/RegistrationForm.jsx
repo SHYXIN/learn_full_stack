@@ -8,7 +8,14 @@ import { useUserActions } from "../../hooks/user.actions";
 function RegistrationForm() {
   const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({
+    username: "",
+    email: "",
+    password: "",
+    first_name: "",
+    last_name: "",
+    bio: null,
+  });
   const [error, setError] = useState(null);
   const userActions = useUserActions();
 
@@ -143,6 +150,7 @@ function RegistrationForm() {
         <Form.Control
           value={form.bio}
           onChange={(e) => setForm({ ...form, bio: e.target.value })}
+          as="textarea"
           rows={3}
           placeholder="A simple bio ... (Optional)"
         />

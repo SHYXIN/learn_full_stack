@@ -11,7 +11,7 @@ function App() {
 
     return (
         // Privide the data to the components inside the Provider
-        <Context.Provider valua={data}>
+        <Context.Provider value={data}>
             <Component />
         </Context.Provider>
     );
