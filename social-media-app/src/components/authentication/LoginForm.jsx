@@ -22,8 +22,8 @@ function LoginForm() {
     setValidated(true);
 
     const data = {
-      // username: form.username,
-      email: form.email,
+      username: form.username,
+      // email: form.email,
       password: form.password,
     };
 
@@ -62,7 +62,7 @@ function LoginForm() {
       validated={validated}
       onSubmit={handleSubmit}
     >
-      <Form.Group className="mb-3">
+      {/* <Form.Group className="mb-3">
         <Form.Label>Email address</Form.Label>
         <Form.Control
           value={form.email}
@@ -70,6 +70,20 @@ function LoginForm() {
           required
           type="email"
           placeholder="Enter email"
+        />
+        <Form.Control.Feedback type="invalid">
+          This file is required.
+        </Form.Control.Feedback>
+      </Form.Group> */}
+
+      <Form.Group className="mb-3">
+        <Form.Label>Username</Form.Label>
+        <Form.Control
+          value={form.username}
+          onChange={(e) => setForm({ ...form, username: e.target.value })}
+          required
+          type="text"
+          placeholder="Enter username"
         />
         <Form.Control.Feedback type="invalid">
           This file is required.
