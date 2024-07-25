@@ -1,16 +1,14 @@
 import React from "react";
-import { randomAvatar } from "../utils";
+// import { randomAvatar } from "../utils";
 import { Navbar, Container, Image, NavDropdown, Nav } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
+import { getUser, useUserActions } from "../hooks/user.actions";
 
 
 function Navigationbar() {
-  const navigate = useNavigate();
-  const handleLogout = () => {
-    localStorage.removeItem("auth");
-    navigate("/login/");
-  }
+  const userActions = useUserActions()
+
+  const user = getUser();
 
   return (
     <Navbar bg="primary" variant="dark">
@@ -23,15 +21,16 @@ function Navigationbar() {
             <NavDropdown
               title={
                 <Image
-                  src={randomAvatar()}
+                  // src={randomAvatar()}
+                  src={user.avatar}
                   roundedCircle
                   width={36}
                   height={36}
                 />
               }
             >
-              <NavDropdown.Item href="#">Profile</NavDropdown.Item>
-              <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to={`/profile/${user.id}/`}>Profile</NavDropdown.Item>
+              <NavDropdown.Item onClick={userActions.logout}>Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

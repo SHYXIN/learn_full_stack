@@ -12,6 +12,7 @@ class PostSerializer(AbstractSerializer):
 
     liked = serializers.SerializerMethodField()
     likes_count = serializers.SerializerMethodField()
+    filterset_fields = ['author__public_id']
 
     def get_liked(self, instance):
 
