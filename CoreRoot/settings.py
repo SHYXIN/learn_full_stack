@@ -168,3 +168,12 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost",
     "http://127.0.0.1",
 ]
+
+
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'uploads'
+
+# Default avatar URL
+# DEFAULT_AVATAR_URL = "https://avatars.dicebear.com/api/identicon/.svg"
+DEFAULT_AVATAR_URL = "https://api.dicebear.com/9.x/identicon/svg"

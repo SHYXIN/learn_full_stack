@@ -16,6 +16,7 @@ class PostViewSet(AbstractViewSet):
     permission_classes = (UserPermission, )
     # permission_classes = (AllowAny, )
     serializer_class = PostSerializer
+    filterset_fileds = ['author__public_id']
 
     def get_queryset(self):
         return Post.objects.all()
@@ -40,7 +41,7 @@ class PostViewSet(AbstractViewSet):
 
         user.like_post(post)
 
-        serializer = self.serializer_class(post)
+        serializer = self.serializer_class(post, context={'request': request})
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -51,6 +52,6 @@ class PostViewSet(AbstractViewSet):
 
         user.remove_like_post(post)
 
-        serializer = self.serializer_class(post)
+        serializer = self.serializer_class(post, context={'request': request})
 
         return Response(serializer.data, status=status.HTTP_200_OK)
