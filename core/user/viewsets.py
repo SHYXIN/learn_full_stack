@@ -8,7 +8,7 @@ from core.auth.permissions import UserPermission
 class UserViewSet(AbstractViewSet):
     http_method_names = ('patch', 'get')
     # permission_classes = (AllowAny, )
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, UserPermission)
     serializer_class = UserSerializer
 
 

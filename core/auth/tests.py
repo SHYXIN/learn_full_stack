@@ -9,8 +9,8 @@ class TestAuthenticationViewSet:
 
     def test_login(self, client, user):
         data = {
-            # "username": user.username,
-            "email": user.email, # 使用email登录，对应User模型中USERNAME_FIELD设置
+            "username": user.username,
+            # "email": user.email, # 使用email登录，对应User模型中USERNAME_FIELD设置
             "password": "test_password"
         }
         response = client.post(self.endpoint + "login/", data)
@@ -36,8 +36,8 @@ class TestAuthenticationViewSet:
 
     def test_refresh(self, client, user):
         data = {
-            # "username": user.username,
-            "email": user.email, # 使用email登录，对应User模型中USERNAME_FIELD设置
+            "username": user.username,
+            # "email": user.email, # 使用email登录，对应User模型中USERNAME_FIELD设置
             "password": "test_password"
         }
         response = client.post(self.endpoint + "login/", data)

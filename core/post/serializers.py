@@ -12,6 +12,11 @@ class PostSerializer(AbstractSerializer):
 
     liked = serializers.SerializerMethodField()
     likes_count = serializers.SerializerMethodField()
+    comments_count = serializers.SerializerMethodField()
+
+    def get_comments_count(self, instance):
+        return instance.comment_set.count()
+
     filterset_fields = ['author__public_id']
 
     def get_liked(self, instance):
@@ -29,7 +34,7 @@ class PostSerializer(AbstractSerializer):
 
     def validate_author(self, value):
         if self.context['request'].user != value:
-            raise ValidationError("You can't create a post for anothor user.")
+            raise ValidationError("You can't create a post for another user.")
         return value
 
     def update(self, instance, validated_data):
@@ -44,7 +49,7 @@ class PostSerializer(AbstractSerializer):
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         author = User.objects.get_object_by_public_id(rep["author"])
-        rep["author"] = UserSerializer(author).data
+        rep["author"] = UserSerializer(author, context=self.context).data
 
         return rep
 
@@ -52,6 +57,6 @@ class PostSerializer(AbstractSerializer):
         model = Post
         # List of all the fileds that can be include in a request or response
         fields = ['id', 'author', 'body', 'edited', 'liked',
-                  'likes_count', 'created', 'updated']
+                  'likes_count', 'comments_count', 'created', 'updated']
         read_only_fields = ['edited']
 

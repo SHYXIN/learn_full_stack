@@ -16,7 +16,7 @@ class PostViewSet(AbstractViewSet):
     permission_classes = (UserPermission, )
     # permission_classes = (AllowAny, )
     serializer_class = PostSerializer
-    filter_fileds = ['author__public_id']
+    filterset_fileds = ['author__public_id']
 
     def get_queryset(self):
         return Post.objects.all()
