@@ -7,7 +7,11 @@ import { useUserActions } from "../../hooks/user.actions";
 function LoginForm() {
   const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({
+    username: "",
+    // email: form.email,
+    password: "",
+  });
   const [error, setError] = useState(null);
   const userActions = useUserActions();
 
@@ -61,6 +65,7 @@ function LoginForm() {
       noValidate
       validated={validated}
       onSubmit={handleSubmit}
+      data-testid="login-form"
     >
       {/* <Form.Group className="mb-3">
         <Form.Label>Email address</Form.Label>
@@ -80,6 +85,7 @@ function LoginForm() {
         <Form.Label>Username</Form.Label>
         <Form.Control
           value={form.username}
+          data-testid="username-field"
           onChange={(e) => setForm({ ...form, username: e.target.value })}
           required
           type="text"
@@ -94,6 +100,7 @@ function LoginForm() {
         <Form.Label>Password</Form.Label>
         <Form.Control
           value={form.password}
+          data-testid="password-field"
           minLength="8"
           onChange={(e) => setForm({ ...form, password: e.target.value })}
           required
