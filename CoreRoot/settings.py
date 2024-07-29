@@ -9,23 +9,31 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv()
 
+ENV = os.environ.get("ENV")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&5qzhqhd2plap-rup!lb%(gr%6t=tcz=qfw&mm@k#2@+c=qpqo'
+# SECRET_KEY = 'django-insecure-&5qzhqhd2plap-rup!lb%(gr%6t=tcz=qfw&mm@k#2@+c=qpqo'
+SECRET_KEY = os.environ.get('SECRET_KEY',
+                            default='django-insecure-&5qzhqhd2plap-rup!lb%(gr%6t=tcz=qfw&mm@k#2@+c=qpqo')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = False if ENV == "PROD" else True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', default='*').split(".")
 
 
 # Application definition
@@ -91,14 +99,25 @@ WSGI_APPLICATION = 'CoreRoot.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'coredb',
+#         'USER': 'core',
+#         'PASSWORD': 'wCh29&HE&T83',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'coredb',
-        'USER': 'core',
-        'PASSWORD': 'wCh29&HE&T83',
-        'HOST': 'localhost',
-        'PORT': '5432',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": os.getenv("DATABASE_NAME", "coredb"),
+        "USER": os.getenv("DATABASE_USER", "core"),
+        "PASSWORD": os.getenv("DATABASE_PASSWORD", "wCh29&HE&T83"),
+        "HOST": os.environ.get("DATABASE_HOST", "localhost"),
+        "PORT": os.getenv("DATABASE_PORT", "5432"),
     }
 }
 
