@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 // import { randomAvatar } from "../utils";
 import { Navbar, Container, Image, NavDropdown, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { getUser, useUserActions } from "../hooks/user.actions";
+import { Context } from "./Layout";
 
 
 function Navigationbar() {
+  const { setToaster } = useContext(Context);
+
   const userActions = useUserActions()
 
   const user = getUser();
+
+  const handleLogout = () => {
+    userActions.logout().catch((e) =>
+      setToaster({
+        type: "danger",
+        message: "Logout failed",
+        show: true,
+        title: e.data?.detail | "An error occurred."
+      })
+    )
+  }
 
   return (
     <Navbar bg="primary" variant="dark">
@@ -30,7 +44,7 @@ function Navigationbar() {
               }
             >
               <NavDropdown.Item as={Link} to={`/profile/${user.id}/`}>Profile</NavDropdown.Item>
-              <NavDropdown.Item onClick={userActions.logout}>Logout</NavDropdown.Item>
+              <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
